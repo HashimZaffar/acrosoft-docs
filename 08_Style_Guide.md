@@ -5,7 +5,7 @@
 **Product:** Acrosoft Platform  
 **Version:** v1.0  
 **Last Updated:** November 2025  
-**Author:** [Your Name]
+**Author:** Hashim Zaffar
 
 ---
 

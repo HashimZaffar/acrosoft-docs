@@ -37,15 +37,6 @@ Internally, the platform manages:
 
 ---
 
-## 4. Architecture Diagram
-*(Insert Diagram Placeholder — e.g., system architecture diagram using draw.io or PlantUML)*  
-
-**Description:**  
-The system follows a **modular microservices-inspired architecture** hosted on **AWS Cloud**, composed of:
-
-
----
-
 ## 5. Technology Stack
 | Layer | Technology | Description |
 |--------|-------------|-------------|

@@ -1,226 +1,322 @@
-# Acrosoft System Architecture Document
-
-**Version:** 1.0  
-**Last Updated:** November 2025  
-**Author:** Hashim Zaffar  
-**Project:** Acrosoft – Full-Cycle Software Development Platform  
 
 ---
 
-## 1. Introduction
-This document outlines the system architecture, technology stack, and data flow of the **Acrosoft Platform**.  
-It provides a comprehensive overview of how different components—frontend, backend, database, and third-party integrations—interact to deliver Acrosoft’s software development services.
+# **Acrosoft System Architecture Document (SAD)**
 
-The architecture supports scalability, high availability, and modularity to accommodate multiple client projects simultaneously.
+## **Document Control**
 
----
-
-## 2. Purpose
-The goal of this document is to provide:
-- A **clear architectural overview** for developers, architects, and DevOps teams.  
-- **Reference material** for system maintenance and onboarding.  
-- A blueprint for **future enhancements** and performance improvements.
-
----
-
-## 3. System Overview
-The Acrosoft platform enables clients to:
-- Submit project requests and service requirements.  
-- Collaborate with developers and project managers.  
-- Track progress via dashboards and automated reports.  
-- Integrate with third-party tools like GitHub and Slack.  
-
-Internally, the platform manages:
-- Project lifecycle and resource allocation  
-- Client communication and documentation  
-- Continuous deployment pipelines  
+| Field                     | Detail                                              |
+| ------------------------- | --------------------------------------------------- |
+| **Project Name**          | Acrosoft – Full-Cycle Software Development Platform |
+| **Document Version**      | 1.1 (Enterprise Revision)                           |
+| **Last Updated**          | November 2025                                       |
+| **Author**                | Hashim Zaffar                                       |
+| **Reviewed By**           | —                                                   |
+| **Approved By**           | —                                                   |
+| **Document Status**       | Draft / Reviewed / Approved                         |
+| **Confidentiality Level** | Internal / Restricted / Public                      |
 
 ---
 
-## 5. Technology Stack
-| Layer | Technology | Description |
-|--------|-------------|-------------|
-| **Frontend** | React.js, Next.js, TypeScript | Dynamic UI, SSR, and client dashboards |
-| **Backend** | Node.js (Express), GraphQL | REST/GraphQL APIs handling business logic |
-| **Database** | MongoDB Atlas | Document-based cloud database |
-| **Authentication** | JWT, OAuth 2.0 | Secure user and API authentication |
-| **Cloud Hosting** | AWS (EC2, S3, Lambda) | Scalable and cost-efficient deployment |
-| **CI/CD** | GitHub Actions | Automated testing and deployment pipelines |
-| **Logging & Monitoring** | AWS CloudWatch, Sentry | Real-time monitoring and error tracking |
-| **Version Control** | GitHub | Repository and version management |
-| **Messaging & Notifications** | Slack API, SendGrid | Communication integration and alerts |
+## **1. Introduction**
+
+### **1.1 Purpose**
+
+This System Architecture Document (SAD) provides a detailed overview of the **technical architecture, components, integrations, and data flow** of the Acrosoft Platform.
+It serves as the primary reference for developers, architects, and DevOps engineers to understand how system components interact, ensuring scalability, modularity, and maintainability.
+
+### **1.2 Scope**
+
+The document describes:
+
+* Core architectural design and guiding principles
+* Technology stack and system layers
+* Integration with third-party APIs and services
+* Deployment, scalability, and security architecture
+* Monitoring, disaster recovery, and future roadmap
+
+### **1.3 Intended Audience**
+
+| Role                  | Purpose                                           |
+| --------------------- | ------------------------------------------------- |
+| Software Architects   | Review and validate design patterns               |
+| Developers            | Understand integration points and modules         |
+| DevOps Engineers      | Implement CI/CD and deployment pipelines          |
+| QA Teams              | Ensure environment consistency                    |
+| Security Teams        | Verify compliance and system hardening measures   |
+| Business Stakeholders | Reference for scalability and technology strategy |
 
 ---
 
-## 6. System Components
+## **2. System Overview**
 
-### 6.1 Frontend (Client-Side)
-- Built with **React.js + Next.js** for modular and reusable UI components.  
-- Implements **Redux Toolkit** for state management.  
-- Uses **Axios** for API requests.  
-- Supports **SSR (Server-Side Rendering)** for SEO and performance.  
-- Fully responsive design using **Tailwind CSS**.  
+The **Acrosoft Platform** is a **cloud-native, modular SaaS system** enabling clients to manage software development projects through a unified interface.
+It combines project management, collaboration, automation, and analytics under a secure and scalable architecture.
+
+**Key Capabilities:**
+
+* Client project submission and management
+* Real-time progress tracking and dashboards
+* Third-party integrations (GitHub, Slack)
+* Automated deployments and monitoring
+* Continuous service delivery across multiple clients
+
+---
+
+## **3. Architectural Goals and Principles**
+
+| Principle           | Description                                                       |
+| ------------------- | ----------------------------------------------------------------- |
+| **Scalability**     | System scales horizontally to support concurrent client projects. |
+| **Availability**    | Designed for 99.9% uptime through redundancy and load balancing.  |
+| **Security**        | Follows zero-trust principles with encryption and RBAC.           |
+| **Maintainability** | Modular services enable independent updates.                      |
+| **Extensibility**   | Future-ready for AI, billing, and mobile integrations.            |
+
+---
+
+## **4. High-Level Architecture**
+
+### **4.1 Architecture Pattern**
+
+* **Type:** Microservices-oriented, multi-tier architecture
+* **Layers:**
+
+  1. **Presentation Layer** – React/Next.js client applications
+  2. **Application Layer** – Node.js + GraphQL APIs
+  3. **Data Layer** – MongoDB Atlas and Redis cache
+  4. **Integration Layer** – APIs for GitHub, Slack, SendGrid
+  5. **Infrastructure Layer** – AWS-based CI/CD and monitoring stack
+
+### **4.2 System Context Diagram**
+
+*(Illustrative diagram recommended in published version — described below)*
+
+* External entities: Clients, PMs, Developers
+* System: Acrosoft Platform (Frontend + API Gateway)
+* External systems: GitHub, Slack, SendGrid, AWS Cloud Services
+
+---
+
+## **5. Technology Stack**
+
+| Layer                    | Technology                                  | Purpose                                          |
+| ------------------------ | ------------------------------------------- | ------------------------------------------------ |
+| **Frontend**             | React.js, Next.js, TypeScript, Tailwind CSS | Build responsive, dynamic UIs with SSR support   |
+| **Backend**              | Node.js (Express), GraphQL, REST APIs       | Handle business logic and service orchestration  |
+| **Database**             | MongoDB Atlas                               | Document-based distributed data store            |
+| **Cache Layer**          | Redis                                       | Caching and session persistence                  |
+| **Authentication**       | JWT, OAuth 2.0                              | Secure, standards-based identity management      |
+| **Cloud Infrastructure** | AWS (EC2, S3, Lambda, CloudFront)           | Hosting, storage, and scalability                |
+| **CI/CD**                | GitHub Actions                              | Continuous integration and deployment automation |
+| **Logging & Monitoring** | AWS CloudWatch, Sentry, ELK Stack           | System monitoring and centralized log management |
+| **Messaging & Alerts**   | Slack API, SendGrid                         | Event-driven communication and alerts            |
+
+---
+
+## **6. System Components**
+
+### **6.1 Frontend (Presentation Layer)**
+
+* **Framework:** React.js + Next.js
+* **State Management:** Redux Toolkit
+* **API Communication:** Axios for REST and Apollo Client for GraphQL
+* **Key Features:**
+
+  * Dashboard rendering
+  * User session management
+  * Responsive design for cross-platform compatibility
+  * Server-Side Rendering (SSR) for SEO and performance
 
 **Responsibilities:**
-- Handle all user interactions.  
-- Display dashboards, progress reports, and notifications.  
-- Interact with backend APIs for data retrieval and submission.
+
+* Handle all UI interactions
+* Display analytics, milestones, and project activity
+* Securely communicate with backend APIs
 
 ---
 
-### 6.2 Backend (Server-Side)
-- Built on **Node.js (Express)** framework for fast, event-driven architecture.  
-- Uses **GraphQL** layer for flexible data fetching.  
-- Employs **REST endpoints** for compatibility with legacy integrations.  
+### **6.2 Backend (Application Layer)**
 
-**Core Modules:**
-| Module | Description |
-|---------|--------------|
-| **Auth Module** | Manages JWT tokens, login, signup, and role-based access control. |
-| **Project Module** | Handles CRUD operations for projects, tasks, and milestones. |
-| **User Module** | Manages client and team profiles, permissions, and preferences. |
-| **Analytics Module** | Generates project performance metrics and reports. |
-| **Notification Module** | Sends emails and Slack notifications for key events. |
+* **Framework:** Node.js with Express and GraphQL middleware
+* **Architecture:** Modular and event-driven
+* **Data Contracts:** JSON + GraphQL schemas
 
----
+**Core Service Modules:**
 
-### 6.3 Database Layer
-- **MongoDB Atlas** used for distributed, highly available data storage.  
-- Employs **replica sets** for redundancy and **sharding** for scalability.  
-- Collections include:
-  - `users`
-  - `projects`
-  - `tasks`
-  - `invoices`
-  - `activity_logs`
-
-**Indexes:** Created for `user_id`, `project_id`, and `timestamps` to optimize query performance.  
-
-**Backup Policy:** Automated daily snapshots retained for 30 days.
+| Module                     | Description                              |
+| -------------------------- | ---------------------------------------- |
+| **Authentication Service** | Manages JWT tokens, sessions, and roles. |
+| **Project Service**        | Manages projects, tasks, and milestones. |
+| **User Service**           | Handles user management and permissions. |
+| **Analytics Service**      | Generates usage and performance metrics. |
+| **Notification Service**   | Handles email and Slack event triggers.  |
 
 ---
 
-### 6.4 Authentication & Authorization
-- Implements **JWT-based token authentication** for API access.  
-- Supports **OAuth 2.0** for integration with external systems (GitHub, Slack).  
-- Role-based access:
-  - **Admin:** Full access  
-  - **Manager:** Limited to team/project scope  
-  - **Client:** Read-only + limited write (requests/comments)
+### **6.3 Database Layer**
 
-**Security Features:**
-- Password hashing with **bcrypt**  
-- HTTPS/TLS encryption  
-- CORS configured for trusted domains  
-- Rate limiting on API endpoints  
+* **Database:** MongoDB Atlas (Clustered, sharded)
+* **Collections:**
+
+  * `users`, `projects`, `tasks`, `invoices`, `activity_logs`
+* **Indexes:** Optimized for `user_id`, `project_id`, `timestamp`
+* **Backup Policy:**
+
+  * Automated daily backups, 30-day retention
+  * Point-in-time recovery for critical data
 
 ---
 
-### 6.5 Integrations
-| Integration | Purpose |
-|--------------|----------|
-| **GitHub API** | Sync repositories, track commits, and link pull requests. |
-| **Slack API** | Send automated project notifications to client channels. |
-| **SendGrid** | Email delivery for reports and alerts. |
-| **Stripe (Planned)** | Handle invoicing and payments in future release. |
+### **6.4 Authentication & Authorization**
+
+* Implements **JWT authentication** for stateless security.
+* Integrates **OAuth 2.0** for GitHub and Slack authorization.
+* Supports **RBAC (Role-Based Access Control)**:
+
+  * Admin: Full system access
+  * Manager: Project and team management
+  * Client: View and comment permissions
+
+**Security Controls:**
+
+* bcrypt password hashing
+* HTTPS/TLS enforcement
+* CORS for restricted origins
+* Rate limiting and API throttling
 
 ---
 
-## 7. Data Flow
+### **6.5 Integration Layer**
 
-**Workflow Summary:**
-1. Client logs in → JWT issued by Auth Service.  
-2. Client submits project request → stored in `projects` collection.  
-3. Project Manager assigns developers → updates task records.  
-4. Developers commit code → GitHub webhooks trigger status updates.  
-5. Notifications sent via Slack and email.  
-6. Analytics Service aggregates data for reporting dashboards.  
-
----
-
-## 8. Deployment Architecture
-**Environment Setup:**
-| Environment | Purpose | Hosting |
-|--------------|----------|----------|
-| **Development** | Local development and testing | Docker Containers |
-| **Staging** | QA validation and internal testing | AWS EC2 + MongoDB Atlas |
-| **Production** | Live deployment | AWS Elastic Beanstalk + CloudFront CDN |
-
-**CI/CD Pipeline:**
-- Triggered via **GitHub Actions** on each commit.  
-- Runs **unit + integration tests** using Jest.  
-- If passed → automatic deployment to staging.  
-- Manual approval required for production deployment.  
+| Integration              | Function                                    |
+| ------------------------ | ------------------------------------------- |
+| **GitHub API**           | Repository synchronization, commit tracking |
+| **Slack API**            | Real-time project notifications             |
+| **SendGrid API**         | Automated email reports                     |
+| **Stripe API (Planned)** | Future billing and payment management       |
 
 ---
 
-## 9. Scalability & Performance
-| Area | Strategy |
-|-------|-----------|
-| **Load Balancing** | AWS ELB distributes incoming requests evenly. |
-| **Caching** | Redis layer for session storage and caching responses. |
-| **Asynchronous Processing** | AWS Lambda for background jobs (emails, reports). |
-| **Auto-Scaling** | Elastic Beanstalk scales based on CPU/memory usage. |
-| **Database Optimization** | Indexed queries, aggregation pipelines. |
+## **7. Data Flow and Process**
+
+### **Workflow Summary**
+
+1. User logs in → Authentication via JWT.
+2. Project request submitted → Stored in MongoDB.
+3. PM assigns developers → Updates reflected in `tasks` collection.
+4. GitHub commit → Webhook triggers backend status update.
+5. Notifications → Sent via Slack and SendGrid.
+6. Analytics → Aggregated in real-time dashboards.
 
 ---
 
-## 10. Security Architecture
-- HTTPS enforced on all environments.  
-- Data encrypted at rest (AES-256) and in transit (TLS 1.2+).  
-- Web Application Firewall (AWS WAF) filters malicious traffic.  
-- Regular security audits and penetration testing.  
-- Role-based access control verified on all API endpoints.  
+## **8. Deployment Architecture**
+
+### **8.1 Environments**
+
+| Environment     | Purpose                              | Infrastructure                         |
+| --------------- | ------------------------------------ | -------------------------------------- |
+| **Development** | Local testing, containerized setup   | Docker                                 |
+| **Staging**     | Internal QA and validation           | AWS EC2 + MongoDB Atlas                |
+| **Production**  | Public, high-availability deployment | AWS Elastic Beanstalk + CloudFront CDN |
+
+### **8.2 CI/CD Pipeline**
+
+* Triggered on GitHub commit events
+* Executes **Jest** unit and integration tests
+* Staging deployment auto-triggered on success
+* Production deployment upon manual approval
+* Infrastructure-as-Code via **AWS CloudFormation**
+
+---
+
+## **9. Scalability and Performance**
+
+| Focus Area                | Strategy                                        |
+| ------------------------- | ----------------------------------------------- |
+| **Load Balancing**        | AWS ELB distributes requests across nodes       |
+| **Caching**               | Redis for data reuse and session optimization   |
+| **Async Processing**      | AWS Lambda for background tasks                 |
+| **Auto-Scaling**          | Elastic Beanstalk autoscaling policies          |
+| **Database Optimization** | Indexing, aggregation pipelines, caching layers |
+
+---
+
+## **10. Security Architecture**
+
+* HTTPS enforced across all services
+* AES-256 encryption at rest and TLS 1.2+ in transit
+* Web Application Firewall (AWS WAF) filters malicious requests
+* Role-based and permission-level access control
+* Security audits conducted quarterly
 
 **Compliance:**
-- GDPR compliant data processing.  
-- Regular backups and retention policy.  
-- Secure deletion of client data upon request.
+
+* GDPR-compliant data retention
+* ISO/IEC 27001-aligned data protection policies
+* Secure deletion protocols for client data
 
 ---
 
-## 11. Monitoring & Logging
-- **AWS CloudWatch** monitors infrastructure metrics (CPU, memory, network).  
-- **Sentry** tracks application-level exceptions.  
-- **ELK Stack (Elasticsearch, Logstash, Kibana)** aggregates logs for analytics.  
-- Alerts configured for downtime, failed deployments, and performance drops.
+## **11. Monitoring and Observability**
+
+| Tool               | Purpose                                            |
+| ------------------ | -------------------------------------------------- |
+| **AWS CloudWatch** | Infrastructure monitoring                          |
+| **Sentry**         | Application error tracking                         |
+| **ELK Stack**      | Centralized log aggregation                        |
+| **Alerts**         | Automated escalation for downtime or failed builds |
 
 ---
 
-## 12. Disaster Recovery Plan
-- Daily automated database backups.  
-- Weekly infrastructure snapshot backups.  
-- Failover replica in separate AWS region.  
-- Maximum Recovery Time Objective (RTO): **2 hours**  
-- Maximum Data Loss (RPO): **15 minutes**
+## **12. Disaster Recovery and Business Continuity**
+
+| Parameter                          | Strategy                                       |
+| ---------------------------------- | ---------------------------------------------- |
+| **Backups**                        | Daily snapshots, weekly infrastructure backups |
+| **Failover**                       | Multi-region redundancy on AWS                 |
+| **RTO (Recovery Time Objective)**  | 2 hours                                        |
+| **RPO (Recovery Point Objective)** | 15 minutes                                     |
+| **Testing**                        | Semi-annual disaster recovery drills           |
 
 ---
 
-## 13. Future Enhancements
-- Integration with **Stripe API** for billing and invoicing.  
-- AI-driven **resource recommendation system** for project planning.  
-- **Mobile App** for client notifications and quick approvals.  
-- Migration toward **Kubernetes (EKS)** for container orchestration.  
+## **13. Future Enhancements**
+
+* Integration with **Stripe API** for billing
+* AI-based **resource optimization engine**
+* **Mobile companion app** for clients
+* Migration to **Kubernetes (EKS)** for orchestration
+* **GraphQL Federation** for distributed schema management
 
 ---
 
-## 14. Appendix
-### Acronyms
-| Term | Definition |
-|------|-------------|
-| API | Application Programming Interface |
+## **14. Compliance and Quality Standards**
+
+* **IEEE 1471 / ISO/IEC/IEEE 42010** – System and Software Architecture Description
+* **ISO/IEC 27001** – Information Security Management
+* **CMMI-DEV v2.0** – Process Maturity Framework
+* **OWASP Top 10** – Web Application Security Principles
+
+---
+
+## **15. Appendices**
+
+### **15.1 Acronyms**
+
+| Term  | Definition                                     |
+| ----- | ---------------------------------------------- |
+| API   | Application Programming Interface              |
 | CI/CD | Continuous Integration / Continuous Deployment |
-| JWT | JSON Web Token |
-| REST | Representational State Transfer |
-| SSR | Server-Side Rendering |
-| WAF | Web Application Firewall |
+| JWT   | JSON Web Token                                 |
+| SSR   | Server-Side Rendering                          |
+| WAF   | Web Application Firewall                       |
+| RBAC  | Role-Based Access Control                      |
 
----
-
-## 11. Related Documents
+### **15.2 Related Documents**
 
 * [01_Product_Requirements_Document.md](./01_Product_Requirements_Document.md)
-* [02_System_Architecture.md](./02_System_Architecture.md)
 * [03_API_Documentation.md](./03_API_Documentation.md)
 * [04_User_Guide.md](./04_User_Guide.md)
 * [05_Installation_Configuration_Guide.md](./05_Installation_Configuration_Guide.md)

@@ -1,322 +1,419 @@
 
 ---
-# Acrosoft Troubleshooting FAQ
 
-**Product:** Acrosoft Platform  
-**Version:** v1.0  
-**Last Updated:** November 2025  
-**Author:** Hashim Zaffar
+# **Acrosoft Troubleshooting & FAQ**
 
----
+## **Document Control**
 
-## 1. Introduction
-This **Troubleshooting & FAQ Guide** provides solutions to common issues encountered on the Acrosoft platform.  
-It is designed for clients, developers, and support engineers to quickly identify, diagnose, and resolve common technical and functional problems.
-
-If you cannot find your issue here, please contact **support@acrosoft.io** or use the in-app **Support Chat**.
-
----
-
-## 2. General Troubleshooting Process
-Follow these steps before escalating an issue:
-
-1. **Check the Status Page:**  
-   Visit [status.acrosoft.io](https://status.acrosoft.io) to verify if there are known outages.
-2. **Clear Browser Cache:**  
-   Clear cookies and refresh to ensure you are viewing the latest version.
-3. **Try Incognito Mode:**  
-   Browser extensions may interfere with functionality.
-4. **Confirm Internet Connection:**  
-   Ensure stable connectivity (minimum 5 Mbps).
-5. **Check Permissions:**  
-   Access may be restricted based on your role (Admin, Manager, Client).
-6. **Reproduce the Issue:**  
-   Note the exact steps, browser, and timestamp when reporting to support.
+| Field               | Detail                           |
+| ------------------- | -------------------------------- |
+| **Product**         | Acrosoft Platform                |
+| **Guide Version**   | 1.1 (Enterprise Revision)        |
+| **Product Version** | v1.0                             |
+| **Last Updated**    | November 2025                    |
+| **Author**          | Hashim Zaffar                    |
+| **Reviewed By**     | —                                |
+| **Approved By**     | —                                |
+| **Status**          | Published                        |
+| **Audience**        | Clients, Developers, QA, Support |
+| **Confidentiality** | Public / Partner / Internal      |
 
 ---
 
-## 3. Login & Authentication Issues
+## **1. Purpose**
 
-### Issue 3.1 – “Invalid Credentials” Error
-**Cause:** Incorrect email or password.  
-**Solution:**
-- Double-check your login credentials.
-- Use **Forgot Password** to reset credentials.
-- If still unresolved, contact support to verify your account status.
+Help users **identify, diagnose, and resolve** common issues on the Acrosoft Platform.
+If your issue is not listed, contact **[support@acrosoft.io](mailto:support@acrosoft.io)** or use in-app **Support Chat**.
 
 ---
 
-### Issue 3.2 – “Session Expired” Message
-**Cause:** JWT token expired (after 60 minutes).  
-**Solution:**
-- Log out and sign back in.
-- If this occurs frequently, ensure cookies are not blocked in your browser settings.
+## **2. Before You Start: Self-Help Checklist**
+
+1. **Status page**: check outages at **[https://status.acrosoft.io](https://status.acrosoft.io)**
+2. **Hard refresh**: clear cache and cookies, or try **Incognito**
+3. **Browser**: use a supported version and disable extensions temporarily
+4. **Connection**: stable internet 5 Mbps or higher
+5. **Permissions**: confirm your **role** and **project access**
+6. **Reproduce**: note steps, expected vs actual results, time, and screenshots
 
 ---
 
-### Issue 3.3 – “Too Many Login Attempts”
-**Cause:** Exceeded login rate limit.  
-**Solution:**
-- Wait 15 minutes and retry.
-- Use **password reset** if you forgot credentials.
-- Contact support if your account is temporarily locked.
+## **3. Standard Triage Flow (Support Use)**
+
+1. **Classify impact**
+
+   * Critical: outage or data loss
+   * High: major feature broken
+   * Medium: degraded experience
+   * Low: question or cosmetic
+2. **Collect diagnostics** (see Section 15)
+3. **Check recent changes**: deployments, feature flags, config
+4. **Verify health**
+
+   * API: `GET https://api.acrosoft.io/v1/health`
+   * App load via CDN
+5. **Review logs**: Sentry, CloudWatch, application logs
+6. **Apply fix or escalate** (Section 16)
 
 ---
 
-## 4. Project & Task Management Issues
+## **4. Login and Authentication**
 
-### Issue 4.1 – Project Not Visible on Dashboard
-**Cause:** Insufficient permissions or project filters.  
-**Solution:**
-- Check if your role allows project access.  
-- Use the **filter menu** (Active / Completed).  
-- Confirm with your Project Manager if the project is archived.
+### 4.1 “Invalid Credentials”
 
----
+**Cause**: Wrong email or password.
+**Fix**
 
-### Issue 4.2 – “Failed to Create Project” Error
-**Cause:** Missing required fields or invalid date format.  
-**Solution:**
-- Ensure all mandatory fields (name, start date, deadline) are filled.
-- Dates must follow ISO format (`YYYY-MM-DD`).
+* Verify credentials
+* Use **Forgot Password**
+* Ask support to check account status
 
----
+### 4.2 “Session Expired”
 
-### Issue 4.3 – Tasks Not Updating or Stuck
-**Cause:** Network latency or server sync delay.  
-**Solution:**
-- Refresh the page after a few seconds.
-- Check internet connectivity.
-- If the issue persists, contact support with project ID.
+**Cause**: JWT lifetime reached.
+**Fix**
 
----
+* Sign out and sign in again
+* Ensure cookies are enabled and not blocked
 
-### Issue 4.4 – Files Won’t Upload
-**Possible Causes:**
-- File size exceeds 20 MB.
-- Unsupported format.
-- S3 bucket temporarily unavailable.
+### 4.3 “Too Many Login Attempts”
 
-**Solution:**
-- Compress large files before uploading.
-- Accepted formats: PDF, DOCX, ZIP, PNG, JPG.
-- Retry in 5 minutes; AWS storage sync may take a moment.
+**Cause**: Rate limit exceeded.
+**Fix**
+
+* Wait 15 minutes
+* Reset password if needed
+* Support can unlock accounts as required
+
+### 4.4 SSO Cannot Complete
+
+**Cause**: IdP misconfiguration or clock skew.
+**Fix**
+
+* Ask Admin to validate SSO metadata and certificate
+* Ensure device time is auto synced
+* Try a normal login to isolate SSO
 
 ---
 
-## 5. Integration Issues
+## **5. Projects and Tasks**
 
-### Issue 5.1 – Slack Notifications Not Received
-**Cause:** Revoked or expired webhook URL.  
-**Solution:**
-1. Go to **Settings → Integrations → Slack**.
-2. Reconnect your Slack workspace.
-3. Test notification delivery using the “Send Test Message” button.
+### 5.1 Project Missing from Dashboard
 
----
+**Cause**: Filters or permissions.
+**Fix**
 
-### Issue 5.2 – GitHub Repositories Not Syncing
-**Cause:** Invalid token or repository permissions.  
-**Solution:**
-- Re-authenticate GitHub from **Settings → Integrations**.
-- Ensure your GitHub token includes `repo` and `workflow` scopes.
-- Confirm webhook configuration in GitHub repo settings.
+* Clear filters. Check Active and Completed
+* Confirm project is not Archived
+* Ask PM to verify access
 
----
+### 5.2 “Failed to Create Project”
 
-### Issue 5.3 – Email Notifications Delayed
-**Cause:** Queue backlog or SendGrid throttling.  
-**Solution:**
-- Check spam folder or “Promotions” tab.
-- If consistent, contact support to verify SendGrid status.
-- Delays over 15 minutes are logged in **System Analytics → Alerts**.
+**Cause**: Required field or date format error.
+**Fix**
 
----
+* Complete all required fields
+* Use `YYYY-MM-DD` dates
 
-## 6. Performance & Connectivity
+### 5.3 Tasks Do Not Update
 
-### Issue 6.1 – Slow Dashboard Loading
-**Cause:** High traffic or cached session data.  
-**Solution:**
-- Clear browser cache.
-- Switch to incognito mode.
-- Use the latest browser version.
-- Check **status.acrosoft.io** for ongoing maintenance.
+**Cause**: Temporary sync delay or network issue.
+**Fix**
+
+* Refresh after a few seconds
+* Check internet connection
+* Report with project ID if repeatable
+
+### 5.4 File Upload Fails
+
+**Cause**: Size, format, or S3 delay.
+**Fix**
+
+* Max 20 MB per file
+* Allowed: PDF, DOCX, ZIP, PNG, JPG
+* Retry after 5 minutes
 
 ---
 
-### Issue 6.2 – “Server Unreachable” Error
-**Cause:** API downtime or network issue.  
-**Solution:**
-- Verify internet connection.
-- If error persists, check **API health** at `https://api.acrosoft.io/v1/health`.
-- Contact support with error timestamp and browser console log.
+## **6. Integrations**
+
+### 6.1 Slack Notifications Not Received
+
+**Cause**: Revoked webhook or channel mapping.
+**Fix**
+
+1. **Settings → Integrations → Slack**
+2. Reconnect and select the project channel
+3. Send a test message
+
+### 6.2 GitHub Not Syncing
+
+**Cause**: Token scope or repo permission.
+**Fix**
+
+* Reconnect with token that has `repo` and `workflow` scopes
+* Check GitHub webhooks on the repository
+* Confirm the repo is mapped to the correct project
+
+### 6.3 Email Delays
+
+**Cause**: Queue backlog or SendGrid throttling.
+**Fix**
+
+* Check spam or Promotions
+* Delays over 15 minutes appear in **Analytics → Alerts**
+* If chronic, contact support
 
 ---
 
-## 7. Deployment & Dev Environment Issues
+## **7. Performance and Connectivity**
 
-### Issue 7.1 – “Cannot Connect to Database”
-**Cause:** Incorrect `MONGODB_URI` in `.env`.  
-**Solution:**
-- Verify credentials in `.env` file.
-- Test connection manually:
-  ```bash
-  mongo "mongodb+srv://<user>:<pass>@cluster.mongodb.net/acrosoft"
+### 7.1 Slow Dashboard
 
----
+**Cause**: Cache or heavy traffic.
+**Fix**
 
-### Issue 7.2 – Environment Variables Not Loading
+* Clear cache or use Incognito
+* Use latest browser
+* Check **status.acrosoft.io** for maintenance
 
-**Cause:** Missing or misconfigured `.env` file.
-**Solution:**
+### 7.2 “Server Unreachable”
 
-* Ensure `.env` is in the project root directory.
-* Restart the server:
+**Cause**: Network or API downtime.
+**Fix**
 
-  ```bash
-  npm run dev
-  ```
+* Verify internet
+* Check: `https://api.acrosoft.io/v1/health`
+* Share timestamp and console logs with support
 
 ---
 
-### Issue 7.3 – Docker Container Crashes on Start
+## **8. Security and Access**
 
-**Cause:** Port conflicts or memory limits.
-**Solution:**
+### 8.1 “Access Denied”
 
-* Stop previous containers:
+**Cause**: RBAC restriction.
+**Fix**
 
-  ```bash
-  docker stop $(docker ps -aq)
-  ```
-* Restart with fresh build:
+* Confirm your role
+* Request updated permissions from Admin or PM
 
-  ```bash
-  docker-compose up --build
-  ```
+### 8.2 2FA Issues
 
----
+**Cause**: Time drift or code mismatch.
+**Fix**
 
-## 8. Security & Access
-
-### Issue 8.1 – “Access Denied” When Viewing Resource
-
-**Cause:** RBAC restriction.
-**Solution:**
-
-* Confirm your assigned role (Admin, Manager, Client).
-* Contact your project administrator to request access.
+* Sync device time
+* Re add 2FA using an authenticator app
+* Store backup codes safely
 
 ---
 
-### Issue 8.2 – Two-Factor Authentication (2FA) Not Working
+## **9. API and Webhooks**
 
-**Cause:** Incorrect verification code or desynced time.
-**Solution:**
+### 9.1 401 Unauthorized
 
-* Ensure your device time is auto-synced.
-* Re-add your 2FA code using Google Authenticator or Authy.
-* Backup recovery codes during setup for emergencies.
+**Cause**: Expired or missing token.
+**Fix**
 
----
+* Use `Authorization: Bearer <jwt>`
+* Refresh token via `/auth/refresh`
 
-## 9. FAQs
+### 9.2 429 Too Many Requests
 
-### Q1. Can clients directly communicate with developers?
+**Cause**: Rate limit exceeded.
+**Fix**
 
-Yes — clients can message assigned developers using the **in-app chat** under each project, or via the **Slack integration** if enabled.
+* Read headers `X-RateLimit-*`
+* Back off and retry after reset time
 
----
+### 9.3 Webhook Not Received
 
-### Q2. How often is data backed up?
+**Cause**: Target endpoint blocked or signature mismatch.
+**Fix**
 
-Data is backed up **daily** on MongoDB Atlas and retained for 30 days.
-All files on AWS S3 have versioning enabled for recovery.
+* Verify secret and compute HMAC of the raw body
+* Check `X-Acrosoft-Signature` and `X-Acrosoft-Event-ID`
+* Confirm your endpoint returns `2xx` within 5 seconds
 
----
+**Test registration**
 
-### Q3. Can I export project data?
+```http
+POST /webhooks
+Content-Type: application/json
 
-Yes, go to **Projects → Export → CSV/PDF**.
-Export includes project metadata, tasks, and timelines.
-
----
-
-### Q4. What’s the maximum file upload size?
-
-20 MB per file.
-Use ZIP archives for multiple uploads.
-
----
-
-### Q5. How do I report a bug?
-
-1. Navigate to **Help → Report Issue**.
-2. Include:
-
-   * Description of the issue
-   * Screenshot (if available)
-   * Browser, OS, and timestamp
-3. Click **Submit**.
-   The support team will acknowledge within 24 hours.
+{
+  "url": "https://clientapp.io/webhook",
+  "events": ["project.updated", "task.assigned"],
+  "secret": "your-secret"
+}
+```
 
 ---
 
-### Q6. What browsers are supported?
+## **10. Dev and Deployment**
 
-| Browser | Minimum Version |
-| ------- | --------------- |
-| Chrome  | 110+            |
-| Firefox | 100+            |
-| Edge    | 110+            |
-| Safari  | 15+             |
+### 10.1 Cannot Connect to Database
 
----
+**Cause**: Wrong `MONGODB_URI` or allowlist.
+**Fix**
 
-### Q7. Does Acrosoft have an API?
+* Check `.env` and credentials
+* Ensure Atlas IP allowlist or VPC peering
+  **Quick check**
 
-Yes, see [03_API_Documentation.md](./03_API_Documentation.md) for detailed API reference.
+```bash
+mongosh "mongodb+srv://<user>:<pass>@cluster.mongodb.net/acrosoft"
+```
 
----
+### 10.2 Environment Variables Not Loading
 
-### Q8. Is there a mobile app?
+**Cause**: Missing `.env` or process not restarted.
+**Fix**
 
-The mobile app is currently in development and scheduled for **Q2 2026** release.
+* `.env` must be at repo root
+* Restart server:
 
----
+```bash
+npm run dev
+```
 
-### Q9. How do I reset my password?
+### 10.3 Docker Container Crashes
 
-1. Click **Forgot Password** on the login page.
-2. Enter your registered email.
-3. Check your inbox for a reset link (valid for 15 minutes).
+**Cause**: Port conflict or memory limits.
+**Fix**
 
----
-
-### Q10. What is the platform uptime?
-
-Acrosoft maintains **99.9% uptime**.
-All incidents and maintenance updates are listed at [status.acrosoft.io](https://status.acrosoft.io).
-
----
-
-## 10. Contact Support
-
-For additional help:
-
-| Channel           | Details                                           |
-| ----------------- | ------------------------------------------------- |
-| **Email**         | [support@acrosoft.io](mailto:support@acrosoft.io) |
-| **Chat**          | In-app live chat (bottom-right corner)            |
-| **Status Page**   | [status.acrosoft.io](https://status.acrosoft.io)  |
-| **Documentation** | [docs.acrosoft.io](https://docs.acrosoft.io)      |
-
-Response time: **Within 24 business hours**
+```bash
+docker stop $(docker ps -aq)
+docker-compose up --build
+```
 
 ---
 
-## 11. Related Documents
+## **11. Known Limits**
+
+| Item            | Limit                            |
+| --------------- | -------------------------------- |
+| File size       | 20 MB per file                   |
+| Comment length  | 10,000 characters                |
+| Webhook timeout | 5 seconds per delivery           |
+| Rate limit      | 120 requests per minute per user |
+
+---
+
+## **12. Supported Browsers**
+
+| Browser | Version |
+| ------- | ------- |
+| Chrome  | 110+    |
+| Firefox | 100+    |
+| Edge    | 110+    |
+| Safari  | 15+     |
+
+---
+
+## **13. FAQs**
+
+**Can clients message developers**
+Yes. Use in app chat in each project, or Slack if connected.
+
+**How often is data backed up**
+Daily Atlas snapshots with 30 day retention. S3 uses versioning.
+
+**Can I export project data**
+Yes. **Projects → Export → CSV or PDF**.
+
+**How do I report a bug**
+**Help → Report Issue**. Include steps, screenshot, browser, OS, and time.
+
+**Is there a mobile app**
+Mobile app is planned for Q2 2026.
+
+**What is uptime**
+Target uptime is **99.9 percent**. See **status.acrosoft.io**.
+
+---
+
+## **14. Troubleshooting Playbooks (Support Use)**
+
+### 14.1 Authentication Failures
+
+1. Reproduce on a clean browser profile
+2. Check auth logs in Sentry for the user email
+3. Confirm JWT clock skew and token lifetime
+4. If SSO: validate IdP metadata and cert dates
+5. Provide root cause and fix steps
+
+### 14.2 Slow Pages
+
+1. Capture browser network waterfall and p95 load time
+2. Compare CDN vs origin latency
+3. Check CloudWatch for 5xx or throttles
+4. Verify Redis or cache health if enabled
+5. Create a Jira ticket with metrics
+
+### 14.3 Webhook Delivery
+
+1. Search `X-Acrosoft-Event-ID` in logs
+2. Verify receiver returned `2xx`
+3. Validate signature against stored secret
+4. Retry event if delivery failed
+
+---
+
+## **15. Data to Include When Contacting Support**
+
+Copy, fill, and paste into Support Chat or email.
+
+```
+Issue summary:
+Steps to reproduce:
+Expected result:
+Actual result:
+Timestamp (UTC):
+Project ID / Task ID:
+User email:
+Browser and version:
+Screenshots / HAR (if possible):
+```
+
+---
+
+## **16. Severity and Escalation**
+
+| Severity | Example                  | First Response  | Escalation                  |
+| -------- | ------------------------ | --------------- | --------------------------- |
+| Critical | System outage, data loss | 1 hour          | On-call SRE and Engineering |
+| High     | Major feature broken     | 4 hours         | Product and Engineering     |
+| Medium   | Degraded UX              | 1 business day  | Support lead                |
+| Low      | Questions or cosmetic    | 2 business days | Support queue               |
+
+**Escalation paths**
+
+* Internal Slack: `#acrosoft-ops` for incidents, `#acrosoft-support` for tickets
+* External: [support@acrosoft.io](mailto:support@acrosoft.io)
+
+---
+
+## **17. Privacy and Security**
+
+* Encrypt data in transit and at rest
+* Do not share secrets or full tokens in tickets
+* Use redacted logs for reproduction details
+* Follow org policy for data retention and deletion
+
+---
+
+## **18. Changelog**
+
+| Guide Version | Date     | Notes                                             |
+| ------------- | -------- | ------------------------------------------------- |
+| 1.0           | Nov 2025 | Initial FAQ                                       |
+| 1.1           | Nov 2025 | Enterprise revision, triage, playbooks, templates |
+
+---
+
+## **19. Related Documents**
 
 * [01_Product_Requirements_Document.md](./01_Product_Requirements_Document.md)
 * [02_System_Architecture.md](./02_System_Architecture.md)

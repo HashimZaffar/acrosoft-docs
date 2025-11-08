@@ -1,249 +1,266 @@
 
 ---
 
-# **Acrosoft System Deployment & Operations Guide**
+# **Acrosoft Security & Compliance Guide**
 
-**Product:** Acrosoft Platform
-**Version:** v1.0
-**Last Updated:** November 2025
-**Author:** Hashim Zaffar
+| **Field**             | **Detail**                                                        |
+| --------------------- | ----------------------------------------------------------------- |
+| **Product**           | Acrosoft Platform                                                 |
+| **Version**           | v1.0                                                              |
+| **Last Updated**      | November 2025                                                     |
+| **Author**            | Hashim Zaffar                                                     |
+| **Status**            | Approved                                                          |
+| **Confidentiality**   | Internal / Restricted                                             |
+| **Intended Audience** | DevOps Engineers, Security Teams, Compliance Officers, Developers |
 
 ---
 
 ## **1. Introduction**
 
-This **System Deployment & Operations Guide** provides detailed instructions for deploying, managing, and scaling the **Acrosoft Platform** across different environments.
-It is designed for **DevOps engineers**, **system administrators**, and **SRE teams** responsible for maintaining production uptime, reliability, and scalability.
+This **Security & Compliance Guide** defines the frameworks, policies, and controls that secure the **Acrosoft Platform**.
+It ensures confidentiality, integrity, and availability of client data while maintaining compliance with major international standards such as **ISO/IEC 27001**, **SOC 2 Type II**, and **GDPR**.
+
+The guide is intended for:
+
+* DevOps and Security Engineering teams
+* Compliance Officers and Auditors
+* Developers integrating secure features
+* Legal and Management stakeholders
 
 ---
 
-## **2. Infrastructure Overview**
+## **2. Security Objectives**
 
-### 2.1 Cloud Provider
-
-Acrosoft runs entirely on **Amazon Web Services (AWS)** using the following key services:
-
-| Component      | Service                        | Purpose                                |
-| -------------- | ------------------------------ | -------------------------------------- |
-| **Compute**    | Elastic Beanstalk, EC2, Lambda | Application hosting                    |
-| **Storage**    | S3                             | File and static asset storage          |
-| **Database**   | MongoDB Atlas                  | Persistent data layer                  |
-| **Networking** | Route 53, VPC, Load Balancer   | DNS and traffic management             |
-| **Monitoring** | CloudWatch, Sentry             | Performance metrics and error tracking |
-| **Delivery**   | CloudFront CDN                 | Content distribution and caching       |
-
-### 2.2 Regions & Availability
-
-* **Primary Region:** `us-east-1 (N. Virginia)`
-* **Failover Region:** `us-west-2 (Oregon)`
-* Multi-AZ configuration ensures resilience during outages.
-
-### 2.3 Security Groups
-
-| Group      | Ports   | Description                                          |
-| ---------- | ------- | ---------------------------------------------------- |
-| `web-tier` | 80, 443 | Public access for HTTPS traffic                      |
-| `api-tier` | 4000    | Backend service endpoints                            |
-| `db-tier`  | 27017   | MongoDB Atlas connection (restricted to app subnets) |
+1. **Protect Data Integrity** – Prevent unauthorized changes or loss.
+2. **Ensure Confidentiality** – Restrict access to authorized users.
+3. **Guarantee Availability** – Minimize downtime and service disruptions.
+4. **Maintain Compliance** – Meet GDPR, ISO 27001, SOC 2, and regional requirements.
+5. **Promote Security by Design** – Embed security in every SDLC phase.
 
 ---
 
-## **3. Deployment Workflow**
+## **3. Governance & Roles**
 
-### 3.1 Environments
-
-| Environment     | URL                           | Purpose               |
-| --------------- | ----------------------------- | --------------------- |
-| **Development** | `https://dev.acrosoft.io`     | Internal testing      |
-| **Staging**     | `https://staging.acrosoft.io` | QA validation         |
-| **Production**  | `https://app.acrosoft.io`     | Live user environment |
-
-### 3.2 Branching Model
-
-Acrosoft uses **GitHub Flow**:
-
-* `main` → production releases
-* `develop` → staging/testing
-* Feature branches: `feature/<feature-name>`
-* Hotfix branches: `hotfix/<issue-id>`
-
-### 3.3 CI/CD Pipeline (GitHub Actions)
-
-1. **Commit pushed → Lint + Unit Tests**
-2. **Build Step → Docker Image**
-3. **Deploy to Staging → Auto Smoke Test**
-4. **Manual Approval → Production Deployment**
-
-**YAML Example**
-
-```yaml
-name: Deploy to AWS
-on:
-  push:
-    branches: [ main ]
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: npm ci
-      - run: npm run build
-      - run: npx eb deploy acrosoft-prod
-```
+| **Role**                 | **Responsibilities**                                                 |
+| ------------------------ | -------------------------------------------------------------------- |
+| **CISO / Security Lead** | Establishes policies, oversees audits, approves remediation.         |
+| **DevOps Team**          | Implements cloud, network, and operational security controls.        |
+| **Developers**           | Follow secure coding, token handling, and data protection standards. |
+| **QA Team**              | Performs vulnerability validation and regression testing.            |
+| **Compliance Officer**   | Manages GDPR, SOC 2, ISO 27001, and legal obligations.               |
 
 ---
 
-## **4. Scaling and Performance**
+## **4. Data Protection Policy**
 
-### 4.1 Auto Scaling Configuration
+### 4.1 Data Classification
 
-* Minimum Instances: **2**
-* Maximum Instances: **8**
-* Scaling Triggers:
+| **Category** | **Description**           | **Example**                |
+| ------------ | ------------------------- | -------------------------- |
+| Public       | Non-sensitive information | Product docs, public pages |
+| Internal     | Operational data          | System logs, analytics     |
+| Confidential | Business-critical data    | Client files, source code  |
+| Restricted   | PII or financial data     | User info, payment data    |
 
-  * CPU Utilization > 70% (scale out)
-  * CPU Utilization < 30% (scale in)
-* Health Check: `/api/v1/health`
+### 4.2 Encryption
 
-### 4.2 Caching
+* **In Transit:** TLS 1.2+ enforced on all endpoints.
+* **At Rest:** AES-256 for S3, MongoDB Atlas, and backups.
+* **Key Management:** AWS KMS with 90-day key rotation.
 
-* **CloudFront** for static content caching
-* **Redis (Elasticache)** for API responses and session data
-* Cache TTL: 5–15 minutes depending on resource type
+### 4.3 Data Retention & Deletion
 
-### 4.3 Load Balancing
-
-* **Application Load Balancer (ALB)** used for API routing
-* Round-robin distribution with sticky sessions disabled
-
-### 4.4 Performance Optimization Tips
-
-* Use compression (`gzip`, `brotli`) on responses
-* Enable lazy loading for frontend assets
-* Prefetch frequently accessed API routes
-* Monitor API latency via CloudWatch metrics
+* Backups retained for 30 days.
+* GDPR “Right to Be Forgotten” honored within 7 business days.
+* Cryptographic erase used for all decommissioned disks.
 
 ---
 
-## **5. Monitoring & Alerting**
+## **5. Access Control & Identity Management**
 
-### 5.1 Dashboards
+### 5.1 Authentication
 
-| Tool               | Purpose                     |
-| ------------------ | --------------------------- |
-| **AWS CloudWatch** | Metrics and logs            |
-| **Sentry**         | Application error tracking  |
-| **ELK Stack**      | Centralized log aggregation |
+* JWT tokens with 1-hour expiration.
+* OAuth 2.0 for GitHub and Slack integrations.
+* Optional 2FA for all admin and manager accounts.
 
-### 5.2 Key Metrics
+### 5.2 Authorization (RBAC)
 
-* API latency (`p95 < 400ms`)
-* Error rate (`<1%`)
-* Uptime (`>99.9%`)
-* Deployment success rate (`>98%`)
+| **Role**  | **Access Scope**                 |
+| --------- | -------------------------------- |
+| Admin     | Full platform access             |
+| Manager   | Project and team management      |
+| Developer | Assigned projects only           |
+| Client    | Read/write within owned projects |
 
-### 5.3 Alerts
+### 5.3 Account Security
 
-| Type               | Threshold              | Action             |
-| ------------------ | ---------------------- | ------------------ |
-| **High CPU Usage** | >80% for 10 mins       | Auto-scale trigger |
-| **App Errors**     | >50 errors/min         | PagerDuty alert    |
-| **MongoDB Lag**    | >10s replication delay | Notify SRE         |
-| **SSL Expiry**     | <10 days remaining     | Auto-renew         |
+* Minimum password length: 12 characters.
+* Lockout after 5 failed logins (15-minute cooldown).
+* Inactive accounts disabled after 90 days.
 
 ---
 
-## **6. Rollback & Disaster Recovery**
+## **6. Application Security**
 
-### 6.1 Rollback Procedure
-
-1. Identify failing deployment version in **Elastic Beanstalk console**.
-2. Select **Previous Deployment** → *Restore Version*.
-3. Validate rollback through `/health` endpoint.
-4. Update release notes with rollback reason.
-
-### 6.2 Database Recovery
-
-* Automated **daily backups** in MongoDB Atlas
-* Retention period: **30 days**
-* To restore: use Atlas UI → *Backup* → *Restore Snapshot*
-
-### 6.3 File Recovery
-
-* S3 **Versioning** enabled
-* Retrieve file via AWS CLI:
-
-  ```bash
-  aws s3 cp s3://acrosoft-bucket/uploads/file.png --version-id <id> ./file.png
-  ```
-
-### 6.4 Disaster Recovery Plan
-
-* Failover to secondary region (`us-west-2`)
-* DNS switchover through Route 53 failover routing policy
-* Estimated Recovery Time: **Under 2 hours**
+| **Area**               | **Control**                            |
+| ---------------------- | -------------------------------------- |
+| **Input Validation**   | Enforced using schema validation (AJV) |
+| **XSS Prevention**     | Output encoding and sanitization       |
+| **CSRF Protection**    | CSRF tokens for sensitive requests     |
+| **Authentication**     | JWT with signature validation          |
+| **Error Handling**     | Mask internal stack traces             |
+| **Dependency Audits**  | GitHub Dependabot and `npm audit`      |
+| **Secrets Management** | Stored in AWS Secrets Manager          |
 
 ---
 
-## **7. Incident Response**
+## **7. Infrastructure Security**
 
-### 7.1 Severity Levels
+### 7.1 Network Segmentation
 
-| Level     | Impact                         | Example                  |
-| --------- | ------------------------------ | ------------------------ |
-| **SEV-1** | Platform-wide outage           | API or login failure     |
-| **SEV-2** | Major feature degradation      | Project creation blocked |
-| **SEV-3** | Minor bug or performance issue | Slow page loads          |
+| **Tier** | **Access**   | **Purpose**                    |
+| -------- | ------------ | ------------------------------ |
+| Web Tier | Public (443) | Client access via HTTPS        |
+| App Tier | Private      | API and backend services       |
+| DB Tier  | Private      | MongoDB Atlas connections only |
 
-### 7.2 Response Process
+### 7.2 Firewall & WAF
 
-1. **Detection:** Monitoring alert or user report
-2. **Acknowledgement:** Within **5 minutes (SEV-1)**
-3. **Mitigation:** Apply rollback or fix
-4. **Resolution:** Validate system health
-5. **Postmortem:** Document root cause and remediation steps
+* AWS WAF rules block XSS, SQL injection, and bots.
+* CloudFront and AWS Shield handle DDoS protection.
+* Rate limiting applied per IP per user.
 
-### 7.3 Communication Channels
+### 7.3 Endpoint Security
 
-* **Slack:** `#acrosoft-ops`
-* **Email Alerts:** sent via SendGrid
-* **Incident Reports:** filed in Confluence within 24 hours
-
-### 7.4 On-Call Rotation
-
-| Role              | Schedule       | Contact                                         |
-| ----------------- | -------------- | ----------------------------------------------- |
-| **Primary SRE**   | Weekdays       | [sre@acrosoft.io](mailto:sre@acrosoft.io)       |
-| **Secondary SRE** | Weekends       | [devops@acrosoft.io](mailto:devops@acrosoft.io) |
-| **Escalation**    | 24/7 PagerDuty | [pager@acrosoft.io](mailto:pager@acrosoft.io)   |
+* All DevOps and CI/CD systems use encrypted disks and EDR.
+* MFA and SSH key rotation enforced on all root accounts.
 
 ---
 
-## **8. Maintenance Schedule**
+## **8. Compliance Frameworks**
 
-| Task                  | Frequency | Responsible    |
-| --------------------- | --------- | -------------- |
-| Patch dependencies    | Weekly    | DevOps         |
-| Review backups        | Weekly    | DBA            |
-| Audit IAM permissions | Monthly   | Security       |
-| SSL renewal check     | Monthly   | Platform Admin |
-| Load test validation  | Quarterly | QA/DevOps      |
+| **Standard**  | **Coverage**                              | **Validation Method**        |
+| ------------- | ----------------------------------------- | ---------------------------- |
+| ISO/IEC 27001 | ISMS policies, risk management            | Annual external audit        |
+| SOC 2 Type II | Security, availability, confidentiality   | Continuous control testing   |
+| GDPR          | Data protection, retention, access rights | Compliance audits, user DSRs |
+| PCI DSS       | Payment data handling (Stripe)            | Third-party certification    |
 
----
-
-## **9. Best Practices**
-
-* Deploy to staging before production every time.
-* Automate repetitive DevOps tasks via scripts.
-* Keep deployment scripts version-controlled.
-* Document every incident in the postmortem log.
-* Enforce least-privilege IAM roles.
-* Rotate credentials every 90 days.
+**Penetration Testing:** Semi-annual by independent vendor.
+**Third-Party Audits:** Annual, managed by Compliance Officer.
 
 ---
 
-## **10. Related Documents**
+## **9. Logging & Monitoring**
 
+| **Tool**       | **Purpose**            | **Retention**           |
+| -------------- | ---------------------- | ----------------------- |
+| AWS CloudWatch | Infrastructure metrics | 90 days                 |
+| Sentry         | Application errors     | 30 days                 |
+| ELK Stack      | Aggregated logs        | 1 year (archived to S3) |
+| GuardDuty      | Threat detection       | Continuous              |
+
+Alerts trigger notifications via **PagerDuty** and **Slack** (`#acrosoft-ops`).
+
+---
+
+## **10. Incident Management**
+
+| **Phase**   | **Description**                   |
+| ----------- | --------------------------------- |
+| Detection   | Alert from Sentry or CloudWatch   |
+| Assessment  | Triage by on-call SRE             |
+| Containment | Isolate affected system           |
+| Eradication | Apply hotfix or rollback          |
+| Recovery    | Validate service stability        |
+| Postmortem  | Root cause and remediation logged |
+
+**Client Notifications:** Issued within 72 hours for data-impacting incidents (GDPR Article 33).
+
+---
+
+## **11. Risk Management**
+
+| **Activity**           | **Frequency** | **Owner**          |
+| ---------------------- | ------------- | ------------------ |
+| Vulnerability Scanning | Weekly        | Security Engineer  |
+| Patch Management       | Monthly       | DevOps             |
+| Risk Assessment Review | Quarterly     | Compliance Officer |
+| Penetration Testing    | Bi-annual     | Third-party vendor |
+
+All risks logged in Jira with severity, likelihood, and mitigation plan.
+
+---
+
+## **12. Business Continuity & Disaster Recovery**
+
+| **Asset**   | **RTO** | **RPO**    |
+| ----------- | ------- | ---------- |
+| App Servers | 2 hours | 15 minutes |
+| Database    | 1 hour  | 5 minutes  |
+| S3 Files    | 4 hours | 30 minutes |
+
+* Failover region: `us-west-2`
+* Backups automatically tested weekly.
+* Annual DR drill conducted under Compliance supervision.
+
+---
+
+## **13. Vendor & Third-Party Security**
+
+| **Control Area**    | **Requirement**                            |
+| ------------------- | ------------------------------------------ |
+| Vendor Contracts    | Must include DPA and security clause       |
+| Security Evaluation | Required before onboarding                 |
+| Access Control      | Restricted to service-specific credentials |
+| Annual Review       | Conducted by Compliance Officer            |
+
+---
+
+## **14. Employee Security**
+
+* Mandatory training upon hire and annually.
+* Background checks for all privileged roles.
+* Immediate access revocation on termination.
+* Zero access to production for non-DevOps staff.
+
+---
+
+## **15. Testing & Verification Schedule**
+
+| **Test Type**      | **Frequency** | **Tools / Methods**               |
+| ------------------ | ------------- | --------------------------------- |
+| Static Analysis    | Every commit  | SonarQube, ESLint Security Plugin |
+| Dynamic Testing    | Monthly       | OWASP ZAP                         |
+| Vulnerability Scan | Weekly        | AWS Inspector                     |
+| Penetration Test   | Bi-annual     | Third-party partner               |
+| Red Team Exercise  | Annual        | External vendor                   |
+
+---
+
+## **16. Documentation & Audits**
+
+* All policies version-controlled in Git.
+* Annual compliance review with sign-off from Security Lead.
+* Store evidence in restricted-access compliance vault.
+* Retain audit records for a minimum of 5 years.
+
+---
+
+## **17. Security Best Practices**
+
+* Follow least privilege access principle.
+* Rotate keys and tokens quarterly.
+* Avoid storing secrets in code or logs.
+* Perform code reviews for all security-sensitive changes.
+* Validate all third-party integrations.
+
+---
+
+## **18. Related Documents**
+
+* [02_System_Architecture.md](./02_System_Architecture.md)
 * [05_Installation_Configuration_Guide.md](./05_Installation_Configuration_Guide.md)
 * [06_Release_Notes.md](./06_Release_Notes.md)
 * [07_Troubleshooting_FAQ.md](./07_Troubleshooting_FAQ.md)

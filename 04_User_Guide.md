@@ -1,281 +1,435 @@
-# Acrosoft User Guide.md
-
-**Product:** Acrosoft Platform  
-**Version:** v1.0  
-**Last Updated:** November 2025  
-**Author:** Hashim Zaffar
 
 ---
 
-## 1. Introduction
-Welcome to the **Acrosoft Platform User Guide**.  
-This document is designed to help clients, project managers, and team members effectively navigate and utilize Acrosoft’s tools for software development, collaboration, and project tracking.
+# **Acrosoft User Guide**
 
-Acrosoft provides a unified platform to:
-- Request and manage development projects
-- Communicate with teams and stakeholders
-- Track milestones and progress in real time
-- Integrate with GitHub, Slack, and cloud tools
+## **Document Control**
 
-Whether you are a **client** monitoring progress or a **developer** working on deliverables, this guide will help you master Acrosoft step-by-step.
-
----
-
-## 2. Getting Started
-
-### 2.1 System Requirements
-| Component | Minimum Requirement |
-|------------|---------------------|
-| **Browser** | Chrome 110+, Firefox 100+, Edge 110+ |
-| **OS** | Windows 10+, macOS 12+, Linux Ubuntu 22+ |
-| **Internet** | Stable connection (5 Mbps+) |
-| **Screen Resolution** | 1366x768 or higher |
+| Field               | Detail                                        |
+| ------------------- | --------------------------------------------- |
+| **Product**         | Acrosoft Platform                             |
+| **Guide Version**   | 1.1 (Enterprise Revision)                     |
+| **Product Version** | v1.0                                          |
+| **Last Updated**    | November 2025                                 |
+| **Author**          | Hashim Zaffar                                 |
+| **Reviewed By**     | —                                             |
+| **Approved By**     | —                                             |
+| **Status**          | Draft / Reviewed / Approved                   |
+| **Audience**        | Clients, Project Managers, Developers, Admins |
+| **Confidentiality** | Public / Partner / Internal                   |
 
 ---
 
-### 2.2 Account Registration
-1. Go to **[https://app.acrosoft.io](https://app.acrosoft.io)**  
-2. Click **Sign Up**
-3. Choose your account type:
-   - **Client Account** – For businesses outsourcing projects
-   - **Team Account** – For Acrosoft developers/managers
-4. Fill in:
-   - Full Name
-   - Email
-   - Password
-5. Click **Create Account**
-6. Verify your email to activate your account.
+## **1. About This Guide**
+
+### 1.1 Purpose
+
+Help all roles use Acrosoft to plan work, collaborate, and track delivery.
+
+### 1.2 What You Will Learn
+
+* Sign up, sign in, and secure your account
+* Create and manage projects and tasks
+* Communicate with your team and clients
+* View analytics and export reports
+* Connect Slack and GitHub
+* Configure notifications, roles, and permissions
 
 ---
 
-### 2.3 Logging In
-Use your registered email and password at  
-**[https://app.acrosoft.io/login](https://app.acrosoft.io/login)**
+## **2. Quick Start by Role**
 
-Upon login, you’ll see:
-- **Dashboard Overview**
-- **Projects**
-- **Messages**
-- **Settings**
+### 2.1 Client
 
----
+1. Create account and verify email
+2. Create a project request
+3. Review milestones on the Dashboard
+4. Comment on tasks and approve deliverables
+5. Export a weekly report
 
-## 3. Navigating the Dashboard
+### 2.2 Project Manager
 
-The Dashboard is your control center.  
-It gives you an overview of:
-- Active projects
-- Task progress
-- Notifications
-- Performance analytics
+1. Create project or accept client request
+2. Add team members and set roles
+3. Define milestones and tasks
+4. Connect Slack and GitHub
+5. Monitor velocity and adjust deadlines
 
-### Dashboard Sections
-| Section | Description |
-|----------|--------------|
-| **Projects Panel** | View ongoing, completed, and pending projects |
-| **Notifications** | Displays updates, new comments, and deadlines |
-| **Reports** | Shows weekly or monthly analytics |
-| **Team Chat** | Allows direct communication with your Acrosoft team |
+### 2.3 Developer
 
----
+1. Join assigned project
+2. Review specs and files
+3. Update task status on Kanban board
+4. Link commits and pull requests
+5. Resolve comments and move tasks to Done
 
-## 4. Managing Projects
+### 2.4 Admin
 
-### 4.1 Creating a New Project
-1. Navigate to **Projects → Create New Project**
-2. Fill out:
-   - Project Title  
-   - Description  
-   - Start and End Dates  
-   - Budget (optional)
-3. Choose a **Service Category**:
-   - Web Development  
-   - API Integration  
-   - Mobile App  
-   - UX/UI Design  
-   - DevOps
-4. Click **Submit Request**
-
-Your project manager will review the request and initiate onboarding.
+1. Configure SSO and 2FA policies
+2. Manage org roles and permissions
+3. Set notification defaults and retention limits
+4. Review audit logs and access reports
+5. Maintain integrations
 
 ---
 
-### 4.2 Viewing Project Details
-Click on any project from your dashboard to view:
-- Overview (status, deadline, team)
-- Tasks and milestones
-- GitHub commits
-- Files and attachments
-- Communication threads
+## **3. System Requirements**
+
+| Component    | Minimum                                        |
+| ------------ | ---------------------------------------------- |
+| **Browser**  | Chrome 110+, Firefox 100+, Edge 110+           |
+| **OS**       | Windows 10+, macOS 12+, Ubuntu 22.04+          |
+| **Internet** | 5 Mbps stable connection                       |
+| **Screen**   | 1366×768 or higher                             |
+| **Mobile**   | Latest iOS or Android browser (responsive web) |
+
+> Tip: Enable cookies and local storage for best experience.
 
 ---
 
-### 4.3 Updating Project Status
-Project managers can change the project phase using:
-**Project → Status → Update**
-Available statuses:
-- `Planning`
-- `In Progress`
-- `Under Review`
-- `Completed`
+## **4. Accessing Acrosoft**
+
+### 4.1 Create an Account
+
+1. Go to **[https://app.acrosoft.io](https://app.acrosoft.io)**
+2. Select **Sign Up**
+3. Choose **Client** or **Team**
+4. Enter name, email, password
+5. Verify email to activate
+
+### 4.2 Sign In
+
+* Visit **[https://app.acrosoft.io/login](https://app.acrosoft.io/login)**
+* Enter email and password
+
+### 4.3 Single Sign-On (Optional)
+
+* Supported IdPs: Microsoft Entra ID, Google Workspace, Okta
+* Admins can enable under **Admin → Security → SSO**
+
+### 4.4 Two-Factor Authentication
+
+* Go to **Settings → Security**
+* Enable **2FA** with an authenticator app
+* Save backup codes in a safe place
+
+### 4.5 Password Reset
+
+* Click **Forgot Password** on the login page
+* Check email and follow the link
 
 ---
 
-## 5. Task Management
+## **5. Navigating the Interface**
 
-### 5.1 Creating a Task
-Within any project:
-1. Go to **Tasks → Add Task**
-2. Enter:
-   - Task Title
-   - Description
-   - Due Date
-   - Assigned Developer
-3. Click **Save Task**
+### 5.1 Main Areas
 
----
+| Area          | What You See                                   |
+| ------------- | ---------------------------------------------- |
+| **Dashboard** | Projects, tasks, alerts, and high-level KPIs   |
+| **Projects**  | Project list, search, filters, and statuses    |
+| **Tasks**     | Kanban and list views with quick edits         |
+| **Messages**  | Project rooms and direct messages              |
+| **Analytics** | Velocity, completion rate, trend charts        |
+| **Settings**  | Profile, security, notifications, integrations |
 
-### 5.2 Updating Task Status
-Tasks can be marked as:
-- `To Do`
-- `In Progress`
-- `Blocked`
-- `Completed`
+### 5.2 Global Actions
 
-You can drag-and-drop tasks in the Kanban-style board to update progress.
+* Search bar for projects and tasks
+* Create menu: **New Project**, **New Task**
+* Bell icon: notifications and reminders
+* Profile menu: account, theme, sign out
 
 ---
 
-### 5.3 Attaching Files or Comments
-Each task supports:
-- File uploads (PDF, DOCX, ZIP, PNG)
-- Inline comments and mentions (`@username`)
+## **6. Projects**
 
-Example:
-> “@dev.jane Please review the new API endpoint for `/projects`.”
+### 6.1 Create a Project
 
----
+1. **Projects → Create New Project**
+2. Enter Title, Description, Dates, Budget (optional)
+3. Choose Service Category
+4. Submit
 
-## 6. Communication Tools
+### 6.2 Project Details
 
-### 6.1 Chat and Messaging
-- Access chat via **Messages → Project Room**
-- Each project has its dedicated communication thread.
-- You can share files, links, and updates in real time.
+* **Overview**: status, deadlines, team
+* **Tasks & Milestones**
+* **Commits**: linked GitHub activity
+* **Files**: specs and attachments
+* **Messages**: project room and mentions
 
-### 6.2 Slack Integration
-To connect Slack:
-1. Go to **Settings → Integrations**
-2. Click **Connect Slack**
-3. Approve the permissions
-4. Project updates and task assignments will appear directly in your Slack workspace.
+### 6.3 Status Workflow
 
----
+| Status           | Use When                               |
+| ---------------- | -------------------------------------- |
+| **Planning**     | Scope and milestones are being defined |
+| **In Progress**  | Work is active                         |
+| **Under Review** | QA and stakeholder review              |
+| **Completed**    | Work is delivered and closed           |
+| **Archived**     | Hidden from active lists, read-only    |
 
-## 7. Reports and Analytics
+> PMs update via **Project → Status → Update**.
 
-### 7.1 Accessing Reports
-Go to **Analytics → Reports**
-- Choose filters (Project, Timeframe)
-- View:
-  - Task completion rate
-  - Team performance
-  - Velocity charts
-  - Issue trends
+### 6.4 Team and Access
 
-### 7.2 Exporting Reports
-Click **Export PDF/CSV** to download detailed summaries for management or clients.
+* **Add Members**: **Project → Team → Add**
+* Assign roles per project: Client, Developer, Manager, Viewer
 
----
+### 6.5 Files and Deliverables
 
-## 8. Account Management
-
-### 8.1 Profile Settings
-- Navigate to **Settings → Profile**
-- Update:
-  - Name
-  - Contact info
-  - Timezone
-  - Profile Picture
-
-### 8.2 Security Settings
-- Change passwords under **Settings → Security**
-- Enable **2FA** for added security
-
-### 8.3 Roles & Permissions
-| Role | Access Level |
-|------|---------------|
-| Admin | Full access |
-| Project Manager | Assign and manage teams |
-| Developer | Access assigned projects |
-| Client | View and track progress |
+* Upload PDF, DOCX, ZIP, PNG
+* Max file size: **20 MB** per file
+* Versioning: new uploads keep history
 
 ---
 
-## 9. Notifications
+## **7. Tasks**
 
-Acrosoft automatically sends notifications for:
-- New project updates
-- Task status changes
-- Comments or mentions
-- File uploads
-- Deadline reminders
+### 7.1 Create a Task
 
-Notifications can be viewed:
-- Inside the web app (bell icon)
-- Via email
-- In Slack (if connected)
+1. Open a project
+2. **Tasks → Add Task**
+3. Title, Description, Due Date, Assignee
+4. Save
 
----
+### 7.2 Update Status
 
-## 10. Troubleshooting
+* Drag cards on the Kanban board
+* States: **To Do**, **In Progress**, **Blocked**, **Completed**
 
-| Issue | Possible Cause | Solution |
-|--------|----------------|----------|
-| Unable to log in | Wrong credentials | Reset password using “Forgot Password” |
-| Project not visible | Access permissions | Contact your manager |
-| File upload fails | Size limit exceeded (20 MB) | Compress file or contact support |
-| Notifications missing | Disabled alerts | Re-enable in “Settings → Notifications” |
+### 7.3 Comments and Mentions
 
----
+* Use `@username` to notify someone
+* Attach files and paste links
+* Code blocks are supported in comments
 
-## 11. Support
+### 7.4 Bulk Actions
 
-For technical issues or feedback:
-- **Email:** support@acrosoft.io  
-- **Chat:** In-app live chat (bottom-right corner)  
-- **Docs:** [https://docs.acrosoft.io](https://docs.acrosoft.io)
+* Multi-select to change assignee, due date, or status for several tasks
 
-Support Hours: Monday–Friday, 9 AM – 6 PM (UTC)
+### 7.5 Good Practices
+
+* One clear owner per task
+* Short, action-oriented titles
+* Acceptance criteria in the description
 
 ---
 
-## 12. Best Practices
-- Keep your project specs updated to avoid confusion.
-- Use consistent naming conventions for files and tasks.
-- Review progress weekly and provide feedback early.
-- Always attach documentation or screenshots for bugs.
-- Use Slack or in-app chat for urgent updates instead of email.
+## **8. Communication**
+
+### 8.1 Messages
+
+* **Messages → Project Room** for each project
+* Share files, links, and quick updates
+
+### 8.2 Slack Integration
+
+1. **Settings → Integrations → Connect Slack**
+2. Approve access
+3. Choose target channel per project
+4. You will receive updates for task changes, mentions, and deploys
+
+### 8.3 Email Preferences
+
+* **Settings → Notifications**
+* Toggle digests, mentions, task updates, and reminders
 
 ---
 
-## 13. Glossary
-| Term | Definition |
-|------|-------------|
-| **PRD** | Product Requirements Document |
-| **API** | Application Programming Interface |
-| **MVP** | Minimum Viable Product |
-| **UI/UX** | User Interface / User Experience |
-| **RBAC** | Role-Based Access Control |
+## **9. Analytics and Reports**
+
+### 9.1 Reports
+
+* **Analytics → Reports**
+* Filter by Project and Timeframe
+* Metrics: Completion rate, velocity, open vs closed tasks, issue trends
+
+### 9.2 Export
+
+* **Export CSV** for spreadsheets
+* **Export PDF** for stakeholders
+* Exports include applied filters and timestamps
 
 ---
 
-## 11. Related Documents
+## **10. Integrations**
+
+### 10.1 GitHub
+
+* **Settings → Integrations → Connect GitHub**
+* Authorize and pick repositories
+* Commits and pull requests appear in project activity
+
+### 10.2 Slack
+
+* See section 8.2
+
+### 10.3 Email (SendGrid)
+
+* System uses email for alerts and digests
+* No setup needed for end users
+
+---
+
+## **11. Account and Security**
+
+### 11.1 Profile
+
+* **Settings → Profile**
+* Update name, photo, contact info, timezone
+
+### 11.2 Security
+
+* Change password and enable 2FA
+* View active sessions and sign out of other devices
+
+### 11.3 Roles and Permissions
+
+| Role                | Access Highlights                      |
+| ------------------- | -------------------------------------- |
+| **Admin**           | All organization settings and projects |
+| **Project Manager** | Project setup, team, milestones        |
+| **Developer**       | Assigned projects and tasks            |
+| **Client**          | Read and comment on own projects       |
+
+> Admins control role assignment under **Admin → Users**.
+
+---
+
+## **12. Notifications**
+
+* Triggered by project updates, task events, mentions, file uploads, deadlines
+* Channels: in-app, email, Slack
+* Configure under **Settings → Notifications**
+
+---
+
+## **13. Accessibility and Localization**
+
+* Keyboard navigation supported
+* Contrast-friendly themes
+* Timezone support per user profile
+* Date and time in ISO 8601
+
+---
+
+## **14. Troubleshooting**
+
+| Issue              | Cause                             | Fix                                        |
+| ------------------ | --------------------------------- | ------------------------------------------ |
+| Cannot sign in     | Wrong password or expired session | Use **Forgot Password** or sign in again   |
+| Project missing    | No access or wrong filter         | Clear filters or contact a PM              |
+| File upload fails  | Over 20 MB or blocked type        | Compress file or split archives            |
+| No notifications   | Disabled or muted channel         | Re-enable in **Settings → Notifications**  |
+| Slack not updating | App not authorized                | Reconnect integration and reselect channel |
+
+---
+
+## **15. FAQs**
+
+**Q:** Can I change a project owner
+**A:** Yes. PMs can update owner in **Project → Team**.
+
+**Q:** How do I restore an archived project
+**A:** Admin or PM can unarchive from **Projects → Filters → Archived → Restore**.
+
+**Q:** Can clients upload files
+**A:** Yes, within their projects and tasks.
+
+**Q:** Do comments notify by email
+**A:** Yes, if mentions or your notification rule is enabled.
+
+---
+
+## **16. Best Practices**
+
+* Keep specs, wireframes, and acceptance criteria attached to tasks
+* Review progress weekly and close done work
+* Use mentions for decisions and approvals
+* Keep statuses accurate to improve analytics
+* Export monthly reports for stakeholders
+
+---
+
+## **17. Support and SLA**
+
+* **Email:** [support@acrosoft.io](mailto:support@acrosoft.io)
+* **In-App Chat:** bottom-right widget
+* **Docs:** [https://docs.acrosoft.io](https://docs.acrosoft.io)
+
+**Hours:** Monday to Friday, 9 AM to 6 PM UTC
+
+**Severity and Targets**
+
+| Severity | Example               | First Response  |
+| -------- | --------------------- | --------------- |
+| Critical | System outage         | 1 hour          |
+| High     | Major feature broken  | 4 hours         |
+| Medium   | Degraded experience   | 1 business day  |
+| Low      | Questions or requests | 2 business days |
+
+---
+
+## **18. Data Privacy**
+
+* GDPR-aligned handling
+* Data encrypted in transit and at rest
+* Export and deletion available upon request through support
+
+---
+
+## **19. Keyboard Shortcuts**
+
+| Action             | Shortcut       |
+| ------------------ | -------------- |
+| New Task           | `N`            |
+| Search             | `/`            |
+| Open Notifications | `G` then `N`   |
+| Save               | `Ctrl/Cmd + S` |
+
+---
+
+## **20. Limits and Retention**
+
+| Item            | Limit                                                                         |
+| --------------- | ----------------------------------------------------------------------------- |
+| Max file size   | 20 MB per file                                                                |
+| Comment size    | 10,000 characters                                                             |
+| Webhook timeout | 5 seconds per delivery                                                        |
+| Data retention  | Project files retained for active projects; archived for 12 months by default |
+
+> Admins can request custom retention policies.
+
+---
+
+## **21. Glossary**
+
+| Term      | Definition                         |
+| --------- | ---------------------------------- |
+| **PRD**   | Product Requirements Document      |
+| **API**   | Application Programming Interface  |
+| **MVP**   | Minimum Viable Product             |
+| **UI/UX** | User Interface and User Experience |
+| **RBAC**  | Role-Based Access Control          |
+| **SSO**   | Single Sign-On                     |
+
+---
+
+## **22. Changelog**
+
+| Guide Version | Date     | Notes                                                       |
+| ------------- | -------- | ----------------------------------------------------------- |
+| 1.0           | Nov 2025 | Initial user guide                                          |
+| 1.1           | Nov 2025 | Enterprise revision, added SSO, 2FA, SLA, limits, shortcuts |
+
+---
+
+## **23. Related Documents**
 
 * [01_Product_Requirements_Document.md](./01_Product_Requirements_Document.md)
 * [02_System_Architecture.md](./02_System_Architecture.md)
 * [03_API_Documentation.md](./03_API_Documentation.md)
-* [04_User_Guide.md](./04_User_Guide.md)
 * [05_Installation_Configuration_Guide.md](./05_Installation_Configuration_Guide.md)
 * [06_Release_Notes.md](./06_Release_Notes.md)
 * [08_Style_Guide.md](./08_Style_Guide.md)

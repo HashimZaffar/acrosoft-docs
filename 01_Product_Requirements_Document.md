@@ -3,7 +3,7 @@
 
 # **Acrosoft Product Requirements Document (PRD)**
 
-**Version 1.0 – Enterprise-Ready Revision**
+**Version 1.2 – Enterprise-Ready Revision**
 
 ---
 
@@ -12,7 +12,7 @@
 | Field                     | Detail                          |
 | ------------------------- | ------------------------------- |
 | **Project Name**          | Acrosoft Platform               |
-| **Document Version**      | 1.0 (Enterprise-Ready Revision) |
+| **Document Version**      | 1.2 (Enterprise-Ready Revision) |
 | **Last Updated**          | November 2025                   |
 | **Author**                | Hashim Zaffar                   |
 | **Reviewed By**           | —                               |
@@ -28,6 +28,7 @@
 | ------- | ------------- | ------------- | ----------------------------------------------- |
 | 1.0     | October 2025  | Hashim Zaffar | Initial draft                                   |
 | 1.1     | November 2025 | Hashim Zaffar | Revised for enterprise alignment                |
+| 1.2     | November 2025 | Hashim Zaffar | Enhanced structure, added traceability and KPIs |
 
 ---
 
@@ -44,6 +45,11 @@ It addresses the inefficiencies of traditional outsourcing — fragmented tools,
 
 This Product Requirements Document (PRD) defines the **functional, non-functional, and operational specifications** of the Acrosoft Platform.
 It serves as the single source of truth for all stakeholders, forming the foundation for **design, development, validation, and enterprise governance alignment**.
+
+### **1.2 Scope**
+
+The Acrosoft Platform is a **cloud-based, modular software development management system** supporting **end-to-end SDLC workflows**.
+It integrates project planning, execution, collaboration, reporting, and DevOps automation into one cohesive experience.
 
 ### **1.3 Intended Audience**
 
@@ -244,4 +250,4 @@ Acrosoft resolves this by offering a **transparent, centralized, and collaborati
 
 ---
 
-**End of Document**
+**End of Document – Acrosoft PRD v1.2**

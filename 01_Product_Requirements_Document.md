@@ -3,32 +3,30 @@
 
 # **Acrosoft Product Requirements Document (PRD)**
 
-**Version 1.2 – Enterprise-Ready Revision**
+**Version 1.0 – Initial Draft**
 
 ---
 
 ## **Document Control**
 
-| Field                     | Detail                          |
-| ------------------------- | ------------------------------- |
-| **Project Name**          | Acrosoft Platform               |
-| **Document Version**      | 1.2 (Enterprise-Ready Revision) |
-| **Last Updated**          | November 2025                   |
-| **Author**                | Hashim Zaffar                   |
-| **Reviewed By**           | —                               |
-| **Approved By**           | —                               |
-| **Document Status**       | Draft / Approved / Final        |
-| **Confidentiality Level** | Internal / Restricted / Public  |
+| Field                     | Detail                         |
+| ------------------------- | ------------------------------ |
+| **Project Name**          | Acrosoft Platform              |
+| **Document Version**      | 1.0                            |
+| **Last Updated**          | November 2025                  |
+| **Author**                | Hashim Zaffar                  |
+| **Reviewed By**           | —                              |
+| **Approved By**           | —                              |
+| **Document Status**       | Draft / Approved / Final       |
+| **Confidentiality Level** | Internal / Restricted / Public |
 
 ---
 
 ### **Document Revision History**
 
-| Version | Date          | Author        | Description of Change                           |
-| ------- | ------------- | ------------- | ----------------------------------------------- |
-| 1.0     | October 2025  | Hashim Zaffar | Initial draft                                   |
-| 1.1     | November 2025 | Hashim Zaffar | Revised for enterprise alignment                |
-| 1.2     | November 2025 | Hashim Zaffar | Enhanced structure, added traceability and KPIs |
+| Version | Date          | Author        | Description of Change |
+| ------- | ------------- | ------------- | --------------------- |
+| 1.0     | November 2025 | Hashim Zaffar | Initial draft         |
 
 ---
 
@@ -250,4 +248,4 @@ Acrosoft resolves this by offering a **transparent, centralized, and collaborati
 
 ---
 
-**End of Document – Acrosoft PRD v1.2**
+**End of Document – Acrosoft PRD v1.0**

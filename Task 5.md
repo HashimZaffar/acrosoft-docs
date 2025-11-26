@@ -372,29 +372,6 @@ You’ll get the order record with `status` and `quantity`.
 
 ---
 
-## Postman Collection Hints
-
-If using **Postman**:
-
-1. Create a **collection** named `Swagger Pet Store`.
-2. Add requests in this order:
-
-   * `Create User` (POST `/user`)
-   * `Login` (GET `/user/login`)
-   * `Find Available Pets` (GET `/pet/findByStatus`)
-   * `Get Pet by ID` (GET `/pet/{petId}`)
-   * `Place Order` (POST `/store/order`)
-3. Use **variables** for:
-
-   * `{{baseUrl}} = https://petstore.swagger.io/v2`
-   * `{{username}}`, `{{password}}`, `{{petId}}`, `{{orderId}}`
-4. Chain requests:
-
-   * After `Find Available Pets`, capture `id` of the first pet into `{{petId}}`.
-   * Use `{{petId}}` in the `Place Order` body.
-
----
-
 ## Troubleshooting / Notes
 
 | Issue                                    | Possible Cause                            | Suggested Action                                                   |
